@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.bv.simpledictionary.folderClickActivity">
+
+    <TextView
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:onClick="add"
+        android:text="ADD"
+        android:textSize="56sp" />
+
+    <TextView
+        android:id="@+id/view"
+        android:text="VIEW"
+        android:textSize="56sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:onClick="view"/>
+
+    <TextView
+        android:id="@+id/quiz"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:onClick="quiz"
+        android:text="QUIZ"
+        android:textSize="56sp" />
+
+</LinearLayout>

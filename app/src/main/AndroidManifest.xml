@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bv.simpledictionary">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,8 +25,22 @@
             android:authorities="com.example.bv.simpledictionary"
             android:exported="false" />
 
-        <activity android:name=".WordListActivity" />
-        <activity android:name=".folderClickActivity"></activity>
+        <receiver android:name=".NotificationPublisherReciver" />
+        <receiver android:name=".WakeUpReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".Activities.WordListActivity" />
+        <activity android:name=".Activities.folderClickActivity" />
+        <activity android:name=".Activities.AddWord" />
+        <activity android:name=".Activities.DailyWord" />
+        <activity android:name=".menu.NotificationEdit" />
+        <activity android:name=".Activities.Quiz" />
+        <activity android:name=".Activities.Chart"></activity>
     </application>
 
 </manifest>

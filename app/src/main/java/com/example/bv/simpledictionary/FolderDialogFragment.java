@@ -14,18 +14,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-/**
- * Created by bv on 3/22/2017.
- */
+
 
 public class FolderDialogFragment extends DialogFragment {
 
     public FolderDialogFragment(){
 
     }
-
-
-
     public interface FolderDialogListener{
         void onReturneValue(String value);
             }
@@ -40,10 +35,11 @@ public class FolderDialogFragment extends DialogFragment {
             throw new ClassCastException(getActivity().toString()+" must implement notice dialog listener");
         }
     }
-public static FolderDialogFragment newInstance(String title){
+public static FolderDialogFragment newInstance(String title,String name){
     FolderDialogFragment dialogFragment=new FolderDialogFragment();
     Bundle args=new Bundle();
     args.putString("title",title);
+    args.putString("name",name);
     dialogFragment.setArguments(args);
     return  dialogFragment;
 }
@@ -52,10 +48,12 @@ public static FolderDialogFragment newInstance(String title){
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         String title=getArguments().getString("title");
+        String oldName=getArguments().getString("name");
         AlertDialog.Builder alertDialog=new AlertDialog.Builder(getActivity());
         LayoutInflater inflater=getActivity().getLayoutInflater();
         final LinearLayout view=(LinearLayout) inflater.inflate(R.layout.dialog_fragment,null);
         final EditText mEditText=(EditText) view.findViewById(R.id.nameEditText);
+        mEditText.setText(oldName);
         alertDialog.setTitle(title)
                 .setView(view)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {

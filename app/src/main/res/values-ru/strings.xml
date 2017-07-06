@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyDictionary</string>
+    <string name="all_word">все слова</string>
+    <string name="check">провер</string>
+    <string name="correct">правилно</string>
+    <string name="ecspected">пропушено</string>
+    <string name="finish">закончить</string>
+    <string name="first_run">Удачи</string>
+    <string name="folder">папка</string>
+    <string name="item_menu">меню</string>
+    <string name="next">следюший</string>
+    <string name="notification_content">изучай ежедневно слова</string>
+    <string name="notification_content_main">изучай ежедневно слова и улучшай знания</string>
+    <string name="ok">ок</string>
+    <string name="search">поиск</string>
+    <string name="show_description">"нажмчтоб смотрет десткрипчию "</string>
+    <string name="wrong">неправилно</string>
+    <string name="your_notification_hours">Часы Уведомления</string>
+    <string name="add">Добав</string>
+    <string name="quiz">Экзамен</string>
+    <string name="view">Смотрет</string>
+    <string name="options">опчия</string>
+    <string name="about">обомне</string>
+    <string name="faster">часто</string>
+    <string name="delete">удалить</string>
+    <string name="description">описания</string>
+    <string name="transcription">Транскрипчия</string>
+    <string name="translate">Перевод</string>
+    <string name="word">Слово</string>
+</resources>

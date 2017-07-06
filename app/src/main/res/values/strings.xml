@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">SimpleDictionary</string>
+    <string name="app_name">MyDictionary</string>
+    <string name="add"><u>ADD</u></string>
+    <string name="ok">OK</string>
+    <string name="correct">Correct</string>
+    <string name="wrong">Wrong</string>
+    <string name="ecspected">Escpected</string>
+    <string name="all_word">All word</string>
+    <string name="show_description">tap to show description</string>
+    <string name="item_menu">item menu</string>
+    <string name="your_notification_hours">Your Notification hours</string>
+    <string name="search">Search</string>
+    <string name="finish">Finish</string>
+    <string name="next">next</string>
+    <string name="check">check</string>
+    <string name="folder">Folder</string>
+    <string name="notification_content">Learn Daily Word</string>
+    <string name="notification_content_main">Learn Daily Words and improve your Language</string>
+    <string name="first_run">Good luck!</string>
+    <string name="view">VIEW</string>
+    <string name="quiz">QUIZ</string>
+    <string name="options">options</string>
+    <string name="about">about</string>
+    <string name="translate">Translate</string>
+    <string name="delete">delete</string>
+    <string name="faster">Faster</string>
+    <string name="description">Description</string>
+    <string name="transcription">Transcription</string>
+    <string name="word">Word</string>
 </resources>

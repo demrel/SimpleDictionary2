@@ -10,15 +10,15 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-/**
- * Created by bv on 3/22/2017.
- */
+
 
 public class ContentProvider extends android.content.ContentProvider {
     public static final int DIRECTORY=100;
     public static final int DIRECTORY_ID=101;
     public static final int DICTIONARY=200;
     public static final int DICTIONARY_ID=201;
+    public static final int QUIZ=300;
+    public static final int QUIZ_ID=301;
     private static final UriMatcher sUriMatcher=buildUriMatcher();
     private DBHelper mDBHelper;
 
@@ -26,9 +26,11 @@ public class ContentProvider extends android.content.ContentProvider {
         UriMatcher uriMatcher=new UriMatcher(UriMatcher.NO_MATCH);
 
         uriMatcher.addURI(Contract.AUTHORITY,Contract.PATH_DICTIONARY,DICTIONARY);
-        uriMatcher.addURI(Contract.AUTHORITY,Contract.PATH_DICTIONARY+"#",DICTIONARY_ID);
+        uriMatcher.addURI(Contract.AUTHORITY,Contract.PATH_DICTIONARY+"/#",DICTIONARY_ID);
         uriMatcher.addURI(Contract.AUTHORITY,Contract.PATH_DIRECTORY,DIRECTORY);
-        uriMatcher.addURI(Contract.AUTHORITY,Contract.PATH_DIRECTORY+"#",DIRECTORY_ID);
+        uriMatcher.addURI(Contract.AUTHORITY,Contract.PATH_DIRECTORY+"/#",DIRECTORY_ID);
+        uriMatcher.addURI(Contract.AUTHORITY,Contract.PATH_QUIZ,QUIZ);
+        uriMatcher.addURI(Contract.AUTHORITY,Contract.PATH_QUIZ+"/#",QUIZ_ID);
         return uriMatcher;
 
     }
@@ -44,15 +46,33 @@ public class ContentProvider extends android.content.ContentProvider {
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        final SQLiteDatabase db=mDBHelper.getReadableDatabase();
-        int match=sUriMatcher.match(uri);
+         SQLiteDatabase db=mDBHelper.getReadableDatabase();
+        final int match=sUriMatcher.match(uri);
         Cursor retCursor;
         switch (match){
             case DICTIONARY:
                 retCursor=db.query(Contract.DictionaryEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
                 break;
+            case DICTIONARY_ID:
+                selection= Contract.DictionaryEntry._ID+"=?";
+                selectionArgs=new String[]{String.valueOf(ContentUris.parseId(uri))};
+                retCursor=db.query(Contract.DictionaryEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
+                break;
             case DIRECTORY:
                 retCursor=db.query(Contract.DirectoryEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
+                break;
+            case  DIRECTORY_ID:
+                selection= Contract.DirectoryEntry._ID+"=?";
+                selectionArgs=new String[]{String.valueOf(ContentUris.parseId(uri))};
+                retCursor=db.query(Contract.DirectoryEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
+                break;
+            case QUIZ:
+                retCursor=db.query(Contract.QuizEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
+                break;
+            case QUIZ_ID:
+                selection= Contract.DirectoryEntry._ID+"=?";
+                selectionArgs=new String[]{String.valueOf(ContentUris.parseId(uri))};
+                retCursor=db.query(Contract.QuizEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
                 break;
             default:
                 throw  new UnsupportedOperationException("Unknown query Uri "+uri);
@@ -89,6 +109,15 @@ public class ContentProvider extends android.content.ContentProvider {
                     throw new android.database.SQLException("Failed to insert row into "+uri);
                 }
                 break;
+            case QUIZ:
+                id=db.insert(Contract.QuizEntry.TABLE_NAME,null,values);
+                if(id>0){
+                    retUri= ContentUris.withAppendedId(Contract.QuizEntry.CONTENT_URI,id);
+                }
+                else {
+                    throw new android.database.SQLException("Failed to insert row into "+uri);
+                }
+                break;
             default:
                 throw  new UnsupportedOperationException("Unknown insert Uri "+uri);
         }
@@ -107,9 +136,16 @@ public class ContentProvider extends android.content.ContentProvider {
                id =uri.getPathSegments().get(1);
                 directoryDeleted=db.delete(Contract.DictionaryEntry.TABLE_NAME,"_id=?",new String[]{id});
                 break;
+            //DONT NEED YET
+            case QUIZ_ID:
+                id =uri.getPathSegments().get(1);
+                directoryDeleted=db.delete(Contract.QuizEntry.TABLE_NAME,"_id=?",new String[]{id});
+                break;
             case DIRECTORY_ID:
                 id=uri.getPathSegments().get(1);
                 directoryDeleted=db.delete(Contract.DirectoryEntry.TABLE_NAME,"_id=?",new String[]{id});
+                db.delete(Contract.DictionaryEntry.TABLE_NAME,Contract.DictionaryEntry.DIRECTORY_ID+"=?",new String[]{id});
+              //  db.delete(Contract.QuizEntry.TABLE_NAME,Contract.QuizEntry.DIRECTORY_ID+"=?",new String[]{id});
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown delete Uri");
@@ -134,6 +170,11 @@ public class ContentProvider extends android.content.ContentProvider {
             case DIRECTORY_ID:
                 id=uri.getPathSegments().get(1);
                 rowUpdated=db.update(Contract.DirectoryEntry.TABLE_NAME,values,"_id=?",new String[]{id});
+                break;
+            //DONT NEED YET
+            case QUIZ_ID:
+                id=uri.getPathSegments().get(1);
+                rowUpdated=db.update(Contract.QuizEntry.TABLE_NAME,values,"_id=?",new String[]{id});
                 break;
             default:
                 throw new UnsupportedOperationException("Unknow update Uri "+uri);

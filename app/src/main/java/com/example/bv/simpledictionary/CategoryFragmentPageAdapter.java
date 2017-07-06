@@ -8,18 +8,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.bv.simpledictionary.Fragments.FolderFragment;
 import com.example.bv.simpledictionary.Fragments.SearchFragment;
 
-/**
- * Created by bv on 3/21/2017.
- */
+
 
 class CategoryFragmentPageAdapter extends FragmentPagerAdapter {
     private Context mContext;
 
     public CategoryFragmentPageAdapter(Context context, FragmentManager fm) {
         super(fm);
-        mContext=context;
-
-
+        this.mContext=context;
     }
 
     @Override
@@ -36,8 +32,8 @@ class CategoryFragmentPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position==0) return "Folder";
-            else return "Search";
+        if(position==0) return mContext.getString(R.string.folder);
+            else return mContext.getString(R.string.search);
 
 
 

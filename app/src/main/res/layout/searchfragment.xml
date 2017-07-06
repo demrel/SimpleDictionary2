@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.polyak.iconswitch.IconSwitch
+        android:id="@+id/icon_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:isw_icon_left="@drawable/ic_swap_horiz"
+        app:isw_icon_right="@drawable/ic_swap_horiz" />
 
     <EditText
         android:id="@+id/EditTextSearch"
-        android:layout_width="match_parent"
+        style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
+        android:layout_width="0px"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:hint="Search"/>
+        android:layout_weight="1"
+        android:hint="@string/search"
+        android:imeOptions="actionSearch"
+        android:inputType="textFilter"
+        android:maxLines="1" />
+</LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/categoryRecyclerView"
+        android:id="@+id/allListRecyclerViewView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
